@@ -17,7 +17,7 @@ menu = pygame_menu.Menu(
 )
 
 help_menu = pygame_menu.Menu(
-    height=400,  # Полный экран
+    height=400,  #Полный экран
     title='Помощь',
     width=800
 )
