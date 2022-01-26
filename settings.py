@@ -7,13 +7,14 @@ HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
 FPS = 120
 TILE = 100
+FPS_POS = (WIDTH - 50, 0)
 
 # ray casting settings
-FOV = pi / 3
+FOV = pi / 3  # угол обзора
 HALF_FOV = FOV / 2
-NUM_RAYS = 60
-MAX_DEPTH = 800
-DELTA_ANGLE = FOV / NUM_RAYS
+NUM_RAYS = 60  # кол-во лучей
+MAX_DEPTH = 800  # макс.глубина обзора
+DELTA_ANGLE = FOV / NUM_RAYS  # угол между лучами
 DIST = NUM_RAYS / (2 * tan(HALF_FOV))
 PROJ_COEFF = 3 * DIST * TILE
 SCALE = WIDTH // NUM_RAYS
@@ -31,3 +32,4 @@ DARKGRAY = (110, 110, 110)
 GREEN = (0, 220, 0)
 BLUE = (0, 0, 220)
 PURPLE = (120, 0, 120)
+SKYBLUE = (0, 186, 255)
