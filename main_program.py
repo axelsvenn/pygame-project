@@ -1,9 +1,6 @@
 import pygame
 from settings import *
 from player import Player
-from math import sin, cos
-from map import world_map
-from ray_casting import ray_casting
 from drawing import Drawing
 
 pygame.init()
