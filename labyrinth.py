@@ -48,10 +48,14 @@ def remove_walls(current, next):
         next.walls['top'] = False
 
 
-if __name__ == "__main__":
-    grid_cells = [Cell(col, row) for row in range(ROWS) for col in range(COLS)]
+grid_cells = [Cell(col, row) for row in range(ROWS) for col in range(COLS)]
+
+
+def lab_map():
     current_cell = grid_cells[0]
     stack = list()
+    map_labyrinth = [["."] * ROWS * 2 for _ in range(COLS * 2)]
+
     while not all(map(lambda c: c.visited, grid_cells)):
         current_cell.visited = True
 
@@ -64,3 +68,12 @@ if __name__ == "__main__":
 
         elif stack:
             current_cell = stack.pop()
+
+    for cell in grid_cells:
+        map_labyrinth[cell.x * 2 + 1][cell.y * 2 + 1] = "W" if cell.walls["right"] else "."
+
+    return map_labyrinth
+
+
+if __name__ == "_main__":
+    print(*map(lambda x: "".join(x), lab_map()), sep="\n")

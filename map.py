@@ -1,4 +1,5 @@
 from settings import *
+from labyrinth import lab_map
 
 text_map = [
     "WWWWWWWWWWWW",
@@ -10,6 +11,8 @@ text_map = [
     "W..W....W..W",
     "WWWWWWWWWWWW"
 ]
+
+text_map = lab_map()
 
 world_map = set()
 for j, row in enumerate(text_map):
