@@ -1,45 +1,16 @@
-import pygame
 from random import choice
-
-RES = WIDTH, HEIGHT = 802, 602
-TILE = 50
-cols, rows = WIDTH // TILE, HEIGHT // TILE
-cols_map, rows_map = cols * 2 + 3, rows * 3
-print((rows, cols), (rows_map, cols_map))
-map_labyrinth = [["."] * cols_map for _ in range(rows_map)]
-
-pygame.init()
-sc = pygame.display.set_mode(RES)
-clock = pygame.time.Clock()
+from settings import *
 
 
 class Cell:
     def __init__(self, x, y):
         self.x, self.y = x, y
-        self.walls = {'top': True, 'right': True, 'bottom': True, 'left': True}
+        self.walls = {"top": True, "left": True, "right": True, "bottom": True}
         self.visited = False
 
-    def draw_current_cell(self):
-        x, y = self.x * TILE, self.y * TILE
-        pygame.draw.rect(sc, pygame.Color('saddlebrown'), (x + 2, y + 2, TILE - 2, TILE - 2))
-
-    def draw(self):
-        x, y = self.x * TILE, self.y * TILE
-        if self.visited:
-            pygame.draw.rect(sc, pygame.Color('black'), (x, y, TILE, TILE))
-
-        if self.walls['top']:
-            pygame.draw.line(sc, pygame.Color('darkorange'), (x, y), (x + TILE, y), 3)
-        if self.walls['right']:
-            pygame.draw.line(sc, pygame.Color('darkorange'), (x + TILE, y), (x + TILE, y + TILE), 3)
-        if self.walls['bottom']:
-            pygame.draw.line(sc, pygame.Color('darkorange'), (x + TILE, y + TILE), (x , y + TILE), 3)
-        if self.walls['left']:
-            pygame.draw.line(sc, pygame.Color('darkorange'), (x, y + TILE), (x, y), 3)
-
     def check_cell(self, x, y):
-        find_index = lambda x, y: x + y * cols
-        if x < 0 or x > cols - 1 or y < 0 or y > rows - 1:
+        find_index = lambda x, y: x + y * COLS
+        if x < 0 or x >= COLS or y < 0 or y >= ROWS:
             return False
         return grid_cells[find_index(x, y)]
 
@@ -77,51 +48,19 @@ def remove_walls(current, next):
         next.walls['top'] = False
 
 
-grid_cells = [Cell(col, row) for row in range(rows) for col in range(cols)]
-current_cell = grid_cells[0]
-stack = []
-colors, color = [], 40
+if __name__ == "__main__":
+    grid_cells = [Cell(col, row) for row in range(ROWS) for col in range(COLS)]
+    current_cell = grid_cells[0]
+    stack = list()
+    while not all(map(lambda c: c.visited, grid_cells)):
+        current_cell.visited = True
 
-while True:
-    sc.fill(pygame.Color('darkslategray'))
+        next_cell = current_cell.check_neighbors()
+        if next_cell:
+            next_cell.visited = True
+            stack.append(current_cell)
+            remove_walls(current_cell, next_cell)
+            current_cell = next_cell
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            for_map = [(i.walls["bottom"], i.walls["right"]) for i in grid_cells]
-            # print(*for_map, sep='\n')
-
-            # for r in range(1, rows_map, 2):
-            #     for c in range(1, cols_map, 2):
-            #         print(grid_cells[r // 2][c // 2])
-            #         map_labyrinth[r][c] = "W" if grid_cells[r // 2][c // 2].walls["right"] else "."
-
-            for cell in grid_cells:
-                print((cell.x, cell.x * 2 + 1), (cell.y, cell.y * 2 + 1))
-                # map_labyrinth[cell.x * 2 + 1][cell.y * 2] = "W" if cell.walls["left"] else "."
-                map_labyrinth[cell.y * 2 + 1][cell.x * 2 + 1] = "W" if cell.walls["right"] else "."
-                # map_labyrinth[cell.x * 2 + 2][cell.y * 2 + 1] = "W" if cell.walls["bottom"] else "."
-                # map_labyrinth[cell.x * 2][cell.y * 2 + 1] = "W" if cell.walls["top"] else "."
-
-            print(*map(lambda x: "".join(x), map_labyrinth), sep="\n")
-
-            exit()
-
-    [cell.draw() for cell in grid_cells]
-    current_cell.visited = True
-    current_cell.draw_current_cell()
-    [pygame.draw.rect(sc, colors[i], (cell.x * TILE + 2, cell.y * TILE + 2,
-                                         TILE - 4, TILE - 4)) for i, cell in enumerate(stack)]
-
-    next_cell = current_cell.check_neighbors()
-    if next_cell:
-        next_cell.visited = True
-        stack.append(current_cell)
-        colors.append((min(color, 255), 10, 100))
-        color += 1
-        remove_walls(current_cell, next_cell)
-        current_cell = next_cell
-    elif stack:
-        current_cell = stack.pop()
-
-    pygame.display.flip()
-    clock.tick(30)
+        elif stack:
+            current_cell = stack.pop()

@@ -8,6 +8,7 @@ HALF_HEIGHT = HEIGHT // 2
 FPS = 120
 TILE = 100
 FPS_POS = (WIDTH - 50, 0)
+ROWS, COLS = WIDTH // TILE, HEIGHT // TILE
 
 # ray casting settings
 FOV = pi / 3  # угол обзора
