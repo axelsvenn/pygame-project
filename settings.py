@@ -12,8 +12,8 @@ FPS_POS = (WIDTH - 50, 0)
 # ray casting settings
 FOV = pi / 3  # угол обзора
 HALF_FOV = FOV / 2
-NUM_RAYS = 60  # кол-во лучей
-MAX_DEPTH = 800  # макс.глубина обзора
+NUM_RAYS = 120  # кол-во лучей
+MAX_DEPTH = 800  # дальность прорисовки
 DELTA_ANGLE = FOV / NUM_RAYS  # угол между лучами
 DIST = NUM_RAYS / (2 * tan(HALF_FOV))
 PROJ_COEFF = 3 * DIST * TILE
