@@ -48,13 +48,13 @@ def remove_walls(current, next):
         next.walls['top'] = False
 
 
-grid_cells = [Cell(col, row) for row in range(ROWS) for col in range(COLS)]
+grid_cells = [Cell(col, row) for row in range(ROWS)  for col in range(COLS)]
 
 
 def lab_map():
     current_cell = grid_cells[0]
     stack = list()
-    map_labyrinth = [["."] * ROWS * 2 for _ in range(COLS * 2)]
+    map_labyrinth = [["."] * 16 + ["."] for _ in range(ROWS * 2 + 1)]
 
     while not all(map(lambda c: c.visited, grid_cells)):
         current_cell.visited = True
@@ -69,11 +69,28 @@ def lab_map():
         elif stack:
             current_cell = stack.pop()
 
-    for cell in grid_cells:
-        map_labyrinth[cell.x * 2 + 1][cell.y * 2 + 1] = "W" if cell.walls["right"] else "."
+    # for cell in grid_cells:
+    #     map_labyrinth[cell.x * 2][cell.y * 2] = "W" if cell.walls["right"] else "."
+    print(len(grid_cells) / COLS)
+
+    for i in range(1, 16, 2):
+        for j in range(1, 16, 2):
+            map_labyrinth[i - 1][j - 1] = "W"
+            map_labyrinth[i + 1][j + 1] = "W"
+            current_cell = grid_cells[0].check_cell(i // 2, j // 2)
+
+            if current_cell:
+                map_labyrinth[current_cell.x * 2 + 1][current_cell.y * 2 + 1] = "1"
+                # map_labyrinth[i - 1][j] = "W" if current_cell.walls["top"] else "."
+                # map_labyrinth[i + 1][j] = "W" if current_cell.walls["bottom"] else "."
+                # map_labyrinth[i][j + 1] = "W" if current_cell.walls["right"] else "."
+                # map_labyrinth[i][j - 1] = "W" if current_cell.walls["left"] else "."
+
 
     return map_labyrinth
 
+
+print(*map(lambda x: "".join(x), lab_map()), sep="\n")
 
 if __name__ == "_main__":
     print(*map(lambda x: "".join(x), lab_map()), sep="\n")
