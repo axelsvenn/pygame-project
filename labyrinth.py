@@ -69,28 +69,25 @@ def lab_map():
         elif stack:
             current_cell = stack.pop()
 
-    # for cell in grid_cells:
-    #     map_labyrinth[cell.x * 2][cell.y * 2] = "W" if cell.walls["right"] else "."
-    print(len(grid_cells) / COLS)
-
     for i in range(1, 16, 2):
         for j in range(1, 16, 2):
-            map_labyrinth[i - 1][j - 1] = "W"
-            map_labyrinth[i + 1][j + 1] = "W"
+            map_labyrinth[j - 1][i - 1] = "W"
+            map_labyrinth[j + 1][i + 1] = "W"
             current_cell = grid_cells[0].check_cell(i // 2, j // 2)
 
             if current_cell:
-                map_labyrinth[current_cell.x * 2 + 1][current_cell.y * 2 + 1] = "1"
-                # map_labyrinth[i - 1][j] = "W" if current_cell.walls["top"] else "."
-                # map_labyrinth[i + 1][j] = "W" if current_cell.walls["bottom"] else "."
-                # map_labyrinth[i][j + 1] = "W" if current_cell.walls["right"] else "."
-                # map_labyrinth[i][j - 1] = "W" if current_cell.walls["left"] else "."
+                cx, cy = current_cell.x * 2 + 1, current_cell.y * 2 + 1
+                map_labyrinth[cy][cx + 1] = "W" if current_cell.walls["right"] else "."
+                map_labyrinth[cy][cx - 1] = "W" if current_cell.walls["left"] else "."
+                map_labyrinth[cy - 1][cx] = "W" if current_cell.walls["top"] else "."
+                map_labyrinth[cy + 1][cx] = "W" if current_cell.walls["bottom"] else "."
+
+    for i in range(len(map_labyrinth)):
+        map_labyrinth[i][0] = "W"
+        map_labyrinth[i][-1] = "W"
 
 
     return map_labyrinth
-
-
-print(*map(lambda x: "".join(x), lab_map()), sep="\n")
 
 if __name__ == "_main__":
     print(*map(lambda x: "".join(x), lab_map()), sep="\n")
