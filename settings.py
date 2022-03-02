@@ -21,7 +21,7 @@ PROJ_COEFF = 3 * DIST * TILE
 SCALE = WIDTH // NUM_RAYS
 
 # player settings
-player_pos = (HALF_WIDTH, HALF_HEIGHT)
+player_pos = (150, 150)
 player_angle = 0
 player_speed = 2
 

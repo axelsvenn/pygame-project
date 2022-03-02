@@ -86,8 +86,8 @@ def lab_map():
         map_labyrinth[i][0] = "W"
         map_labyrinth[i][-1] = "W"
 
-
     return map_labyrinth
+
 
 if __name__ == "_main__":
     print(*map(lambda x: "".join(x), lab_map()), sep="\n")
