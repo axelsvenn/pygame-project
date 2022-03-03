@@ -9,6 +9,8 @@ def mapping(x, y):
 
 
 def ray_casting(sc, player_pos, player_angle):
+    """технология луча. луч идёт по вертикалям и горизонталям,
+    пока не наткнётся на стену"""
     x0, y0 = player_pos
     xm, ym = (x0 // TILE) * TILE, (y0 // TILE) * TILE
     cur_angle = player_angle - HALF_FOV

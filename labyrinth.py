@@ -88,6 +88,7 @@ def lab_map():
 
     return map_labyrinth
 
+print(*map(lambda x: "".join(x), lab_map()), sep="\n")
 
 if __name__ == "_main__":
     print(*map(lambda x: "".join(x), lab_map()), sep="\n")

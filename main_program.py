@@ -1,24 +1,34 @@
-import pygame
+import pygame as pg
 from settings import *
 from player import Player
 from drawing import Drawing
 
-pygame.init()
-sc = pygame.display.set_mode((WIDTH, HEIGHT))
-clock = pygame.time.Clock()
-player = Player()
-drawing = Drawing(sc)
 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            exit()
+class App:
+    def __init__(self):
+        self.sc = pg.display.set_mode((WIDTH, HEIGHT))
+        self.clock = pg.time.Clock()
+        self.player = Player()
+        self.drawing = Drawing(self.sc)
 
-    player.movement()
-    sc.fill(BLACK)
-    drawing.background()
-    drawing.world(player.pos, player.angle)
-    drawing.fps(clock)
+    def draw(self):
+        self.sc.fill(BLACK)
+        self.drawing.background()
+        self.drawing.world(self.player.pos, self.player.angle)
+        self.drawing.fps(self.clock)
+
+        pg.display.flip()
+
+    def run(self):
+        while True:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    exit()
+
+            self.player.movement()
+            self.draw()
+            self.clock.tick(FPS)
+
 
     # pygame.draw.circle(sc, GREEN, (int(player.x), int(player.y)), 12)
     # pygame.draw.line(sc, GREEN, player.pos, (player.x + WIDTH * cos(player.angle),
@@ -27,5 +37,7 @@ while True:
     # for x, y in world_map:
     #     pygame.draw.rect(sc, DARKGRAY, (x, y, TILE, TILE), 2)
 
-    pygame.display.flip()
-    clock.tick(FPS)
+if __name__ == "__main__":
+    pg.init()
+    app = App()
+    app.run()

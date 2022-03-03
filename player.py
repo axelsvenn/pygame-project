@@ -10,7 +10,7 @@ class Player:
 
     @property
     def pos(self):
-        return (self.x, self.y)
+        return self.x, self.y
 
     def movement(self):
         sin_a = sin(self.angle)

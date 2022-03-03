@@ -1,17 +1,6 @@
 from settings import *
 from labyrinth import lab_map
 
-text_map = [
-    "WWWWWWWWWWWW",
-    "W..........W",
-    "W...WWWW...W",
-    "W...W...W..W",
-    "W..........W",
-    "W..W...W...W",
-    "W..W....W..W",
-    "WWWWWWWWWWWW"
-]
-
 text_map = lab_map()
 
 world_map = set()
