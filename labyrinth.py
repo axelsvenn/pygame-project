@@ -71,7 +71,7 @@ def lab_map():
 
     for i in range(1, 16, 2):
         for j in range(1, 16, 2):
-            map_labyrinth[j - 1][i - 1] = "W"
+            map_labyrinth[j - 1][i - 1] = "W"  # расставляем walls по сетке
             map_labyrinth[j + 1][i + 1] = "W"
             current_cell = grid_cells[0].check_cell(i // 2, j // 2)
 
@@ -88,7 +88,5 @@ def lab_map():
 
     return map_labyrinth
 
-print(*map(lambda x: "".join(x), lab_map()), sep="\n")
-
-if __name__ == "_main__":
+if __name__ == "__main__":
     print(*map(lambda x: "".join(x), lab_map()), sep="\n")

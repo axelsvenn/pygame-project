@@ -10,6 +10,13 @@ TILE = 100
 FPS_POS = (WIDTH - 50, 0)
 ROWS, COLS = HEIGHT // TILE, WIDTH // TILE
 
+
+# minimap settings
+MAP_SCALE = 5
+MAP_TILE = TILE // MAP_SCALE
+MAP_POS = (0, 0)
+
+
 # ray casting settings
 FOV = pi / 3  # угол обзора
 HALF_FOV = FOV / 2
@@ -34,3 +41,4 @@ GREEN = (0, 220, 0)
 BLUE = (0, 0, 220)
 PURPLE = (120, 0, 120)
 SKYBLUE = (0, 186, 255)
+YELLOW = (220, 220, 0)
