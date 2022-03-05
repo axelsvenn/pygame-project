@@ -69,10 +69,10 @@ def lab_map():
         elif stack:
             current_cell = stack.pop()
 
-    for i in range(1, 16, 2):
-        for j in range(1, 16, 2):
-            map_labyrinth[j - 1][i - 1] = "W"  # расставляем walls по сетке
-            map_labyrinth[j + 1][i + 1] = "W"
+    for i in range(1, 17, 2):
+        for j in range(1, 17, 2):
+            #  map_labyrinth[j - 1][i - 1] = "W"
+            #  map_labyrinth[j + 1][i + 1] = "W"
             current_cell = grid_cells[0].check_cell(i // 2, j // 2)
 
             if current_cell:
@@ -86,7 +86,11 @@ def lab_map():
         map_labyrinth[i][0] = "W"
         map_labyrinth[i][-1] = "W"
 
+    map_labyrinth[-1] = "W" * len(map_labyrinth[-1])
+    map_labyrinth[0] = "W" * len(map_labyrinth[0])
+
     return map_labyrinth
+
 
 if __name__ == "__main__":
     print(*map(lambda x: "".join(x), lab_map()), sep="\n")
