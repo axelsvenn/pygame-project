@@ -7,7 +7,7 @@ from drawing import Drawing
 class App:
     def __init__(self):
         self.sc = pg.display.set_mode((WIDTH, HEIGHT))
-        self.sc_map = pg.Surface((350, 350))
+        self.sc_map = pg.Surface((340, 340))
         self.clock = pg.time.Clock()
         self.player = Player()
         self.drawing = Drawing(self.sc, self.sc_map)
@@ -30,6 +30,7 @@ class App:
             self.player.movement()
             self.draw()
             self.clock.tick(FPS)
+
 
 if __name__ == "__main__":
     pg.init()
